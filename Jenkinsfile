@@ -28,14 +28,25 @@ pipeline {
             }
         }
 
-        stage('SonarQube Analysis') {
+         stage('Run Sonarqube') {
+            environment {
+                scannerHome = tool 'sonar-scanner';
+            }
             steps {
-                withSonarQubeEnv('sonar-server') {  // Replace with your SonarQube server name
-                    // Using sonar-scanner with project settings file
-                    sh 'sonar-scanner -Dproject.settings=sonar-project.properties'
-                }
+              withSonarQubeEnv(credentialsId: 'sonar-token', installationName: 'sonar-server') {
+                sh "${scannerHome}/bin/sonar-scanner -Dproject.settings=sonar-project.properties"
+              }
             }
         }
+
+        // stage('SonarQube Analysis') {
+        //     steps {
+        //         withSonarQubeEnv('sonar-server') {  // Replace with your SonarQube server name
+        //             // Using sonar-scanner with project settings file
+        //             sh 'sonar-scanner -Dproject.settings=sonar-project.properties'
+        //         }
+        //     }
+        // }
 
         stage('Deploy to Artifactory') {
             steps {

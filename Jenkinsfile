@@ -50,11 +50,13 @@ pipeline {
 
         stage('Deploy to Artifactory') {
             steps {
-                // sh "${env.MAVEN_HOME}/bin/mvn clean deploy -s /var/jenkins_home/.m2/settings.xml"
-                sh "mvn clean deploy -X -s /var/jenkins_home/.m2/settings.xml"
-
-
-                // sh "${env.MAVEN_HOME}/bin/mvn deploy"
+                withCredentials([usernamePassword(credentialsId: 'jfrog-creds', usernameVariable: 'JFROG_USER', passwordVariable: 'JFROG_PASSWORD')]) {
+                    sh """
+                        mvn deploy -s /var/jenkins_home/.m2/settings.xml \
+                            -Dusername=${JFROG_USER} \
+                            -Dpassword=${JFROG_PASSWORD}
+                    """
+                }
             }
         }
     }

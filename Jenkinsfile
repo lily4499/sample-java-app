@@ -3,14 +3,19 @@ pipeline {
 
     environment {
         MAVEN_HOME = '/usr/share/maven'
+         GIT_REPO = 'https://github.com/lily4499/samnple-java-app.git'  // Replace with your repository URL
+        GIT_BRANCH = 'main'  // Replace with your branch name if different
     }
 
     stages {
-        stage('Checkout') {
+        stage('Clone Repository') {
             steps {
-                git 'https://github.com/lily4499/sample-java-app.git'
+                git branch: "${env.GIT_BRANCH}",
+                    url: "${env.GIT_REPO}",
+                    credentialsId: 'github-token'  // Replace with your Jenkins GitHub credentials ID
             }
         }
+        
         stage('Build') {
             steps {
                 sh "${MAVEN_HOME}/bin/mvn clean install"

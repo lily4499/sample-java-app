@@ -30,7 +30,7 @@ pipeline {
 
         stage('SonarQube Analysis') {
             steps {
-                withSonarQubeEnv('Your-SonarQube-Server-Name') {  // Replace with your SonarQube server name
+                withSonarQubeEnv('sonar-server') {  // Replace with your SonarQube server name
                     // Using sonar-scanner with project settings file
                     sh 'sonar-scanner -Dproject.settings=sonar-project.properties'
                 }

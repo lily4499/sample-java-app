@@ -8,16 +8,16 @@
     <packaging>war</packaging>
 
     <distributionManagement>
-        <repository>
-            <id>jfrog-repo-releases</id> <!-- Matches id in settings.xml -->
-            <url>https://demojf3.jfrog.io/artifactory/maven-releases</url>
-            <name>Releases Repository</name>
-        </repository>
-        <snapshotRepository>
-            <id>jfrog-repo-snapshots</id> <!-- Matches id in settings.xml -->
-            <url>https://demojf3.jfrog.io/artifactory/maven-snapshots</url>
-            <name>Snapshots Repository</name>
-        </snapshotRepository>
+      <repository>
+        <id>central</id>
+        <name>a0f44trsi4iim-artifactory-primary-0-releases</name>
+        <url>https://demojf3.jfrog.io/artifactory/jfrog-demo-repo-maven</url>
+      </repository>
+      <snapshotRepository>
+        <id>snapshots</id>
+        <name>a0f44trsi4iim-artifactory-primary-0-snapshots</name>
+        <url>https://demojf3.jfrog.io/artifactory/jfrog-demo-repo-maven</url>
+      </snapshotRepository>
     </distributionManagement>
 
     <dependencies>

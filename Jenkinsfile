@@ -50,11 +50,9 @@ pipeline {
 
         stage('Deploy to Artifactory') {
             steps {
-                withCredentials([usernamePassword(credentialsId: 'jfrog-creds', usernameVariable: 'JFROG_USER', passwordVariable: 'JFROG_PASSWORD')]) {
+                withCredentials([file(credentialsId: 'jfrog-credentials', variable: 'SETTINGS_FILE')]) {
                     sh """
-                        mvn deploy -s /var/jenkins_home/.m2/settings.xml \
-                            -Dusername=${JFROG_USER} \
-                            -Dpassword=${JFROG_PASSWORD}
+                        mvn deploy -s $SETTINGS_FILE
                     """
                 }
             }
